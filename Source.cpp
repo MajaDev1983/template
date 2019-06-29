@@ -121,7 +121,6 @@ int main()
 				}
 			}
 
-
 			std::cout << "Razlika dijagonala je:" << mainDiag - sideDiag << std::endl;;
 
 			if (mainDiag - sideDiag == 0)
