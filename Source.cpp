@@ -3,44 +3,43 @@
 #include <vector>
 #include <ctime>
 
+int sumDigits(int a)
+{
+	int sum = 0;
+	while (a > 0)
+	{
+		sum = sum + a % 10;
+		a /= 10;
+	}
+	return sum;
+}
+
 int main()
 {
-	srand(time(NULL));
-	//koliko ce brojeva generirati je prvi parametar
-	//drugi parametar je zadana razlika koju provjeravamo.
+	int prviBroj, drugiBroj, zbroj1, zbroj2;
+
+	std::cout << "Program koji racuna da li dva broja imaju isti broj znamenki!" << std::endl;
+	std::cout << "Koji je prvi broj?" << std::endl;
+	std::cin >> prviBroj;
+
+	std::cout << "Koji je drugi broj?" << std::endl;
+	std::cin >> drugiBroj;
+
+	zbroj1 = sumDigits(prviBroj);
+	zbroj2 = sumDigits(drugiBroj);
 	
-	int size = 0;
-	int diff = 0;
-	int counter = 0;
-	std::vector<int> randomNiz;
-	std::cout << "koliki niz pseudorandom brojeva hoces generirati: " << std::endl;
-	std::cin >> size;
+	std::cout << "Zbroj znamenki prvog broja:" << zbroj1 <<std::endl;
+	std::cout << "Zbroj znamenki drugog broja:" << zbroj2 << std::endl;
 
-	//generacija brojeva do 100
-	for (size_t i = 0; i < size; i++)
+	if (zbroj1 == zbroj2)
 	{
-		randomNiz.push_back(rand() % 100 - 1);
-		std::cout << randomNiz.at(i) << "\t";
+		std::cout << "Zbroj znamenki je isti! Yay!" << std::endl;
+	}
+	else
+	{
+		std::cout << "Zbroj znamenki nije isti! Buuu!" << std::endl;
 	}
 
-	std::cout << "\n";
-	//traženje koliko brojeva ima tu razliku
-	std::cout << "Koja razlika izmedju brojeva te zanima?" << std::endl;
-	std::cin >> diff;
-	for (size_t i = 0; i < size; i++)
-	{
-		for (size_t j = 0; j < size; j++)
-		{
-			if (randomNiz.at(i) - randomNiz.at(j) == diff)
-			{
-				counter++;
-			}
-		}
-		
-	}
-
-	//ispis brojeva
-	std::cout << "Ima " << counter << " brojeva sa tom razlikom" << std::endl;
 
 	system("PAUSE");
 }
