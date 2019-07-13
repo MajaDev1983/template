@@ -1,45 +1,91 @@
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include <vector>
-#include <ctime>
+#include <map>
+#include <queue>
+#include <stack>
+#include <deque>
 
-int sumDigits(int a)
-{
-	int sum = 0;
-	while (a > 0)
-	{
-		sum = sum + a % 10;
-		a /= 10;
-	}
-	return sum;
-}
+//vjezba za container klase
 
 int main()
 {
-	int prviBroj, drugiBroj, zbroj1, zbroj2;
+	std::vector<int> myVector;
+	myVector.push_back(5);
 
-	std::cout << "Program koji racuna da li dva broja imaju isti broj znamenki!" << std::endl;
-	std::cout << "Koji je prvi broj?" << std::endl;
-	std::cin >> prviBroj;
+	//parovi podataka
+	std::pair<std::string, std::string> myPair;
+	myPair.first = "Arton";
+	myPair.second = "Glocke";
 
-	std::cout << "Koji je drugi broj?" << std::endl;
-	std::cin >> drugiBroj;
+	std::pair<std::string, std::string> secondPair = std::make_pair<std::string, std::string>("Aron", "Thompson");
 
-	zbroj1 = sumDigits(prviBroj);
-	zbroj2 = sumDigits(drugiBroj);
-	
-	std::cout << "Zbroj znamenki prvog broja:" << zbroj1 <<std::endl;
-	std::cout << "Zbroj znamenki drugog broja:" << zbroj2 << std::endl;
+	//mape --> dictionary 
+	std::map<std::string, std::string> myMap;
+	myMap.insert(myPair);
+	myMap.insert(secondPair);
+	myMap.insert(std::make_pair<std::string, std::string>("Maja", "Stipetic"));
+	myMap.insert(std::make_pair<std::string, std::string>("Domeniko", "Sutlovic"));
 
-	if (zbroj1 == zbroj2)
+	for (auto it : myMap)
 	{
-		std::cout << "Zbroj znamenki je isti! Yay!" << std::endl;
-	}
-	else
-	{
-		std::cout << "Zbroj znamenki nije isti! Buuu!" << std::endl;
+		std::cout << it.first << ", ";
+		std::cout << it.second << std::endl;
 	}
 
+	std::cout << myMap["Maja"] << std::endl;
+
+	//key odnosno first je jedinstven, tako da myMap.insert(std::make_pair<std::string, std::string>("Maja", "Blabla"));
+	//ce prepisati ovu prvu Maju :/
+	std::cout << "=============================================================================" << std::endl;
+	std::queue<std::string> myQueue;
+	myQueue.push("Arton");
+	myQueue.push("Maja");
+	myQueue.push("Domeniko");
+	myQueue.push("Aron");
+	myQueue.push("Iggy");
+	myQueue.push("Kristijan");
+	myQueue.push("Adnan");
+	myQueue.push("Aleksandar");
+
+	while (!myQueue.empty())
+	{
+		std::cout << myQueue.front() << std::endl;
+		myQueue.pop();
+	}
+	std::cout << "=============================================================================" << std::endl;
+	std::stack<std::string> myStack;
+	myStack.push("Arton");
+	myStack.push("Maja");
+	myStack.push("Domeniko");
+	myStack.push("Aron");
+	myStack.push("Iggy");
+	myStack.push("Kristijan");
+	myStack.push("Adnan");
+	myStack.push("Aleksandar");
+
+	while (!myStack.empty())
+	{
+		std::cout << myStack.top() << std::endl;
+		myStack.pop();
+	}
+	std::cout << "=============================================================================" << std::endl;
+	std::deque<std::string> myDeque;
+	myDeque.push_back("Arton");
+	myDeque.push_back("Maja");
+	myDeque.push_back("Domeniko");
+	myDeque.push_back("Aron");
+	myDeque.push_back("Iggy");
+	myDeque.push_back("Kristijan");
+	myDeque.push_back("Adnan");
+	myDeque.push_back("Aleksandar");
+
+	/*while (!myDeque.empty())
+	{
+		std::cout << myDeque. << std::endl;
+		myStack.pop();
+	}*/
 
 	system("PAUSE");
 }
