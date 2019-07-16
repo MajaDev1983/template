@@ -81,11 +81,13 @@ int main()
 	myDeque.push_back("Adnan");
 	myDeque.push_back("Aleksandar");
 
-	/*while (!myDeque.empty())
+	while (!myDeque.empty())
 	{
-		std::cout << myDeque. << std::endl;
-		myStack.pop();
-	}*/
+		std::cout << myDeque.front() << std::endl;
+		myDeque.pop_front();
+		std::cout << myDeque.back() << std::endl;
+		myDeque.pop_back();
+	}
 
 	system("PAUSE");
 }
