@@ -1,93 +1,84 @@
 #include <iostream>
-#include <cstdlib>
-#include <string>
-#include <vector>
-#include <map>
-#include <queue>
-#include <stack>
-#include <deque>
+//#include <cstdlib>
+#include <chrono>
+#include <random>
 
-//vjezba za container klase
+//Napraviti pojednostavljenu simulaciju kartaske igre blackjack.
+//Korisnika se pita hoce li uzeti kartu, y znaci da, n znaci ne. Ukoliko se korisnik odluci za kartu, 
+//dodaje mu se ta karta. Cilj je skupiti zbroj 21 ili sto blize tom broju.Ukoliko korisnik ima zbroj veci od 21, 
+//automatski gubi igru.
+//Nakon korisnika racunalo bira karte, racunalo ce odustati tj.nece vise uzimati karte ukoliko 
+//ili ima bolji zbroj od igraca ili je u rasponu 13 - 21.
+
+int returnCard()
+{
+	// construct a trivial random generator engine from a time-based seed:
+	unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+	std::default_random_engine generator(seed);
+
+	std::uniform_int_distribution<int> distribution(1, 10);
+
+	return distribution(generator);
+}
 
 int main()
 {
-	std::vector<int> myVector;
-	myVector.push_back(5);
+	char choice = 'a';
+	int sumOfCardsPlayer = 0;
+	int sumOfCardsComp = 0;
+	int counter = 1;
 
-	//parovi podataka
-	std::pair<std::string, std::string> myPair;
-	myPair.first = "Arton";
-	myPair.second = "Glocke";
+	std::cout << "This is a simple game of BlackJack!" << std::endl;
+	std::cout << "=========================================" << std::endl;
 
-	std::pair<std::string, std::string> secondPair = std::make_pair<std::string, std::string>("Aron", "Thompson");
-
-	//mape --> dictionary 
-	std::map<std::string, std::string> myMap;
-	myMap.insert(myPair);
-	myMap.insert(secondPair);
-	myMap.insert(std::make_pair<std::string, std::string>("Maja", "Stipetic"));
-	myMap.insert(std::make_pair<std::string, std::string>("Domeniko", "Sutlovic"));
-
-	for (auto it : myMap)
+	std::cout << std::endl;
+	do
 	{
-		std::cout << it.first << ", ";
-		std::cout << it.second << std::endl;
+		sumOfCardsPlayer += returnCard();
+		std::cout << "Sum of your cards is:" << sumOfCardsPlayer << std::endl;
+		std::cout << "Do you want another card? y/n" << std::endl;
+		std::cin >> choice;
+	} while (choice == 'y');
+
+	if (sumOfCardsPlayer > 21)
+	{
+		std::cout << "You lost. :( " << std::endl;
+	}
+	else if (sumOfCardsPlayer == 21)
+	{
+		std::cout << "Black Jack! Automatic win!! " << std::endl;
+	}
+	else
+	{
+		std::cout << "=========================================" << std::endl;
+		std::cout << "Now it is computer's turn!" << std::endl;
+
+		do
+		{
+			sumOfCardsComp += returnCard();
+			std::cout << "Turn number: " << counter << std::endl;
+			std::cout << "Sum of computer cards is:" << sumOfCardsComp << std::endl;
+			++counter;
+		} while (sumOfCardsComp <= 21 && sumOfCardsComp <= 13);
+
+		std::cout << std::endl;
+		std::cout << "=========================================" << std::endl;
+		std::cout << "=========================================" << std::endl;
+		
+		if (sumOfCardsComp > sumOfCardsPlayer && sumOfCardsComp <= 21)
+		{
+			std::cout << "Computer won! Better luck next time!" << std::endl;
+		}
+		else if (sumOfCardsComp == sumOfCardsPlayer)
+		{
+			std::cout << "It's a tie!" << std::endl;
+		}
+		else
+		{
+			std::cout << "You won! Woohoo!!" << std::endl;
+		}
 	}
 
-	std::cout << myMap["Maja"] << std::endl;
-
-	//key odnosno first je jedinstven, tako da myMap.insert(std::make_pair<std::string, std::string>("Maja", "Blabla"));
-	//ce prepisati ovu prvu Maju :/
-	std::cout << "=============================================================================" << std::endl;
-	std::queue<std::string> myQueue;
-	myQueue.push("Arton");
-	myQueue.push("Maja");
-	myQueue.push("Domeniko");
-	myQueue.push("Aron");
-	myQueue.push("Iggy");
-	myQueue.push("Kristijan");
-	myQueue.push("Adnan");
-	myQueue.push("Aleksandar");
-
-	while (!myQueue.empty())
-	{
-		std::cout << myQueue.front() << std::endl;
-		myQueue.pop();
-	}
-	std::cout << "=============================================================================" << std::endl;
-	std::stack<std::string> myStack;
-	myStack.push("Arton");
-	myStack.push("Maja");
-	myStack.push("Domeniko");
-	myStack.push("Aron");
-	myStack.push("Iggy");
-	myStack.push("Kristijan");
-	myStack.push("Adnan");
-	myStack.push("Aleksandar");
-
-	while (!myStack.empty())
-	{
-		std::cout << myStack.top() << std::endl;
-		myStack.pop();
-	}
-	std::cout << "=============================================================================" << std::endl;
-	std::deque<std::string> myDeque;
-	myDeque.push_back("Arton");
-	myDeque.push_back("Maja");
-	myDeque.push_back("Domeniko");
-	myDeque.push_back("Aron");
-	myDeque.push_back("Iggy");
-	myDeque.push_back("Kristijan");
-	myDeque.push_back("Adnan");
-	myDeque.push_back("Aleksandar");
-
-	while (!myDeque.empty())
-	{
-		std::cout << myDeque.front() << std::endl;
-		myDeque.pop_front();
-		std::cout << myDeque.back() << std::endl;
-		myDeque.pop_back();
-	}
 
 	system("PAUSE");
 }
